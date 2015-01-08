@@ -1,7 +1,7 @@
 ImageLoader
 ===========
 
-> Handle lazy-loading images with contextual load conditions.
+> Handle lazy-loading images with contextual load conditions. Uses animation frames to poll for loading.
 
 
 
@@ -24,6 +24,9 @@ Given a set of elements on the page such as this:
 
 You can load them asynchronously with `ImageLoader` in this manner:
 ```javascript
+var ImageLoader = require( "ImageLoader" );
+
+
 new ImageLoader({
     elements: ".js-lazy-image",
     property: "data-img-src"
@@ -32,6 +35,7 @@ new ImageLoader({
 }).on( "data", function ( element ) {
     // Here you can perform logic on each element
     // For instance, wait to load them until they are in the viewport
+    // Return true to load and false to skip loading until condition is met
     return true;
 
 // Fires when all the images in a collection have been loaded
@@ -63,4 +67,26 @@ var imgLoader = new ImageLoader({
 
 // When some other async action occurs
 imgLoader.update();
+```
+
+You can also create normalized data handlers to pass to the loader:
+```javascript
+// Handler in pseudo code
+var onDataHandler = function ( element ) {
+    var ret = false;
+
+    if ( elementOffsetTop < (currentWindowScrollY + currentWindowHeight) ) {
+        ret = true;
+    }
+
+    return ret;
+};
+
+
+// Use the data handler
+var imgLoader = new ImageLoader({
+    elements: ".js-lazy-image",
+    property: "data-img-src"
+
+}).on( "data", onDataHandler );
 ```
