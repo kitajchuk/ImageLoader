@@ -367,6 +367,8 @@ ImageLoader.prototype = {
             isImage = (element.nodeName.toLowerCase() === "img"),
             source = element.getAttribute( this._property );
 
+        element.dataset.imageLoaderLoaded = true;
+
         addClass( element, ImageLoader.IS_LOADING );
 
         if ( isImage ) {
@@ -468,11 +470,10 @@ ImageLoader.prototype = {
      *
      */
     _getNotLoaded: function () {
-        var regex = new RegExp( (ImageLoader.IS_HANDLED + "|" + ImageLoader.IS_LOADING), "g" ),
-            elems = [];
+        var elems = [];
 
         for ( var i = 0, len = this._elements.length; i < len; i++ ) {
-            if ( !regex.test( this._elements[ i ].className ) ) {
+            if ( !this._elements[ i ].dataset.imageLoaderLoaded ) {
                 elems.push( this._elements[ i ] );
             }
         }

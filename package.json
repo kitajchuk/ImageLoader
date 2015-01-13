@@ -2,7 +2,7 @@
     "title": "Image Loader",
     "name": "properjs-imageloader",
     "description": "Handle lazy-loading images with contextual load conditions.",
-    "version": "0.1.0",
+    "version": "0.1.2",
     "homepage": "https://github.com/ProperJS/ImageLoader",
     "readmeFilename": "README.md",
     "contributors": [
@@ -37,6 +37,7 @@
         "properjs-raf": "~0.1"
     },
     "keywords": [
+        "properjs",
         "image",
         "loader",
         "lazyload"
