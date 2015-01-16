@@ -367,7 +367,7 @@ ImageLoader.prototype = {
             isImage = (element.nodeName.toLowerCase() === "img"),
             source = element.getAttribute( this._property );
 
-        element.dataset.imageLoaderLoaded = true;
+        element.setAttribute( "data-imageloader", true );
 
         addClass( element, ImageLoader.IS_LOADING );
 
@@ -473,7 +473,7 @@ ImageLoader.prototype = {
         var elems = [];
 
         for ( var i = 0, len = this._elements.length; i < len; i++ ) {
-            if ( !this._elements[ i ].dataset.imageLoaderLoaded ) {
+            if ( !this._elements[ i ].getAttribute( "data-imageloader" ) ) {
                 elems.push( this._elements[ i ] );
             }
         }
