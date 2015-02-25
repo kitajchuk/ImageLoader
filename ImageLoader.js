@@ -280,6 +280,7 @@ ImageLoader.prototype = {
             data: null,
             load: null,
             done: null,
+            error: null,
             update: null
         };
 
@@ -415,6 +416,8 @@ ImageLoader.prototype = {
             };
 
             image.onerror = function () {
+                self.fire( "error", element );
+
                 if ( (self._numLoaded === self._num2Load) && !self._resolved ) {
                     self._resolved = true;
 

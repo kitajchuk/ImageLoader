@@ -38,6 +38,14 @@ new ImageLoader({
     // Return true to load and false to skip loading until condition is met
     return true;
 
+// Fires when an element loads its image source
+}).on( "load", function ( el ) {
+    // Handle load success
+
+// Fires when an element fails to load its image source
+}).on( "error", function ( el ) {
+    // Handle load failure
+
 // Fires when all the images in a collection have been loaded
 }).on( "done", function () {
     new ImageLoader({
