@@ -8,7 +8,7 @@ ImageLoader
 ## Installation
 
 ```shell
-npm install properjs-imageloader
+npm install properjs-imageloader --save-dev
 ```
 
 
@@ -24,10 +24,10 @@ Given a set of elements on the page such as this:
 
 You can load them asynchronously with `ImageLoader` in this manner:
 ```javascript
-var ImageLoader = require( "ImageLoader" );
+var ImageLoader = require( "properjs-imageloader" );
 
 
-new ImageLoader({
+var imgLoader = new ImageLoader({
     elements: ".js-lazy-image",
     property: "data-img-src"
 
