@@ -98,3 +98,8 @@ var imgLoader = new ImageLoader({
 
 }).on( "data", onDataHandler );
 ```
+
+You can kill all instances in the stack for ImageLoader with a static method. This is useful when using [PageController](https://github.com/ProperJS/PageController) from web apps.
+```javascript
+ImageLoader.killInstances();
+```

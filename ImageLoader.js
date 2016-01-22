@@ -80,11 +80,17 @@
             }
     
         } else {
-            caf( _raf );
-    
-            _raf = null;
-            _ini = false;
+            stop();
         }
+    }
+    
+    
+    // Stops the animation cycle queue for loading images
+    function stop () {
+        caf( _raf );
+    
+        _raf = null;
+        _ini = false;
     }
     
     
@@ -135,6 +141,22 @@
      */
     var ImageLoader = function () {
         return this.init.apply( this, arguments );
+    };
+    
+    
+    /**
+     *
+     * Stop all instances and reset the stack for EVERYTHING
+     * @method killInstances
+     * @memberof ImageLoader
+     *
+     */
+    ImageLoader.killInstances = function () {
+        stop();
+        
+        _all = 0;
+        _num = 0;
+        _instances = [];
     };
     
     
@@ -407,10 +429,7 @@
                         addClass( element, ImageLoader.IS_HANDLED );
     
                         if ( (self._numLoaded === self._num2Load) && !self._resolved ) {
-                            self._resolved = true;
-    
-                            // Fires the predefined "done" event
-                            self.fire( "done" );
+                            self._resolveInstance( true );
     
                         } else if ( typeof callback === "function" ) {
                             // Errors first
@@ -424,10 +443,7 @@
                     self.fire( "error", element );
     
                     if ( (self._numLoaded === self._num2Load) && !self._resolved ) {
-                        self._resolved = true;
-    
-                        // Fires the predefined "done" event
-                        self.fire( "done" );
+                        self._resolveInstance( true );
     
                     } else if ( typeof callback === "function" ) {
                         // Errors first
@@ -467,6 +483,24 @@
                     self.load( elem );
                 }
             }
+        },
+        
+        /**
+         *
+         * Resolve an instance and remove it from the stack
+         * @memberof ImageLoader
+         * @method _resolveInstance
+         *
+         */
+        _resolveInstance: function () {
+            // Resolved state
+            this._resolved = true;
+            
+            // Fires the predefined "done" event
+            this.fire( "done" );
+            
+            // Purge the instance from the stack
+            _instances.splice( _instances.indexOf( this ), 1 );
         },
     
         /**
