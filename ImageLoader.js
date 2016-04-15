@@ -48,6 +48,18 @@
 
         /**
          *
+         * The method to determine if an image should load itself
+         * @memberof ImageLoader
+         * @member _executor
+         * @private
+         *
+         */
+        this._executor = (options.executor || function ( elem ) {
+            return elem;
+        });
+
+        /**
+         *
          * The Collection to load against
          * @memberof ImageLoader
          * @member _elements
@@ -108,7 +120,7 @@
          * @private
          *
          */
-        this._transitionDelay = (options.transitionDelay || 100);
+        this._transitionDelay = (options.transitionDelay || 0);
 
         /**
          *
@@ -275,7 +287,6 @@
      * Handles element iterations and loading based on callbacks
      * @memberof ImageLoader
      * @method handle
-     * @fires data
      *
      */
     ImageLoader.prototype.handle = function () {
@@ -283,13 +294,10 @@
             self = this;
 
         for ( var i = 0, len = elems.length; i < len; i++ ) {
-            var elem = elems[ i ];
-
-            // Fires the predefined "data" event
-            if ( self.fire( "data", elem ) ) {
+            if ( self._executor( elems[ i ] ) ) {
                 self._numLoaded++;
 
-                self.load( elem );
+                self.load( elems[ i ] );
             }
         }
     };
