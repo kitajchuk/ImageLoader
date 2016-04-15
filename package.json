@@ -1,38 +1,41 @@
 {
-    "title": "Image Loader",
-    "name": "properjs-imageloader",
-    "description": "Handle lazy-loading images with contextual load conditions.",
-    "version": "0.2.1",
-    "homepage": "https://github.com/ProperJS/ImageLoader",
-    "readmeFilename": "README.md",
-    "contributors": [
-        {
-            "name": "Brandon Kitajchuk",
-            "email": "kitajchuk@gmail.com",
-            "url": "http://blkpdx.com"
-        }
-    ],
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/ProperJS/ImageLoader.git"
-    },
-    "bugs": {
-        "url": "https://github.com/ProperJS/ImageLoader/issues"
-    },
-    "licenses": [
-        {
-            "type": "MIT",
-            "url": "https://github.com/ProperJS/ImageLoader/blob/master/LICENSE"
-        }
-    ],
-    "main": "ImageLoader",
-    "scripts": {
-        "test": "webpack test/test.js test/dist/common.js ; cp ImageLoader.js test/dist/browser.js"
-    },
-    "keywords": [
-        "properjs",
-        "loader",
-        "image loader",
-        "lazyload"
-    ]
+  "title": "Image Loader",
+  "name": "properjs-imageloader",
+  "description": "Handle lazy-loading images with contextual load conditions.",
+  "version": "0.3.0",
+  "homepage": "https://github.com/ProperJS/ImageLoader",
+  "readmeFilename": "README.md",
+  "contributors": [
+    {
+      "name": "Brandon Kitajchuk",
+      "email": "kitajchuk@gmail.com",
+      "url": "http://blkpdx.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ProperJS/ImageLoader.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ProperJS/ImageLoader/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/ProperJS/ImageLoader/blob/master/LICENSE"
+    }
+  ],
+  "main": "ImageLoader",
+  "scripts": {
+    "test": "webpack test/test.js test/dist/common.js ; cp ImageLoader.js test/dist/browser.js"
+  },
+  "keywords": [
+    "properjs",
+    "loader",
+    "image loader",
+    "lazyload"
+  ],
+  "dependencies": {
+    "properjs-controller": "^0.2.0"
+  }
 }

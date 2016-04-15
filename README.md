@@ -65,16 +65,8 @@ var imgLoader = new ImageLoader({
 
 // Passes you each element in the collection on iteration
 }).on( "data", function ( element ) {
-    return true;
-
-// Lets you update images after having been loaded
-}).on( "update", function ( element ) {
-    // Perform logic and update an element
+    // determine if it should load or not?
 });
-
-
-// When some other async action occurs
-imgLoader.update();
 ```
 
 You can also create normalized data handlers to pass to the loader:
@@ -97,9 +89,4 @@ var imgLoader = new ImageLoader({
     property: "data-img-src"
 
 }).on( "data", onDataHandler );
-```
-
-You can kill all instances in the stack for ImageLoader with a static method. This is useful when using [PageController](https://github.com/ProperJS/PageController) from web apps.
-```javascript
-ImageLoader.killInstances();
 ```
