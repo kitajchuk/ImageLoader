@@ -1,15 +1,15 @@
 {
   "title": "Image Loader",
   "name": "properjs-imageloader",
-  "description": "Handle lazy-loading images with contextual load conditions.",
-  "version": "0.3.1",
+  "description": "Bullet-proof lazy-loading images with contextual load conditions.",
+  "version": "0.4.0",
   "homepage": "https://github.com/ProperJS/ImageLoader",
   "readmeFilename": "README.md",
   "contributors": [
     {
-      "name": "Brandon Kitajchuk",
-      "email": "kitajchuk@gmail.com",
-      "url": "http://blkpdx.com"
+      "name": "Brandon Lee Kitajchuk",
+      "email": "bk@kitajchuk.com",
+      "url": "https://kitajchuk.com"
     }
   ],
   "repository": {
@@ -26,16 +26,29 @@
     }
   ],
   "main": "ImageLoader",
-  "scripts": {
-    "test": "webpack test/test.js test/dist/common.js ; cp ImageLoader.js test/dist/browser.js"
-  },
   "keywords": [
     "properjs",
     "loader",
     "image loader",
     "lazyload"
   ],
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/polyfill": "^7.8.7",
+    "@babel/preset-env": "^7.9.0",
+    "babel-loader": "^8.1.0",
+    "eslint": "^7.2.0",
+    "eslint-loader": "^4.0.2",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/webpack --progress --profile --display-modules --colors",
+    "start": "npm run test ; node_modules/.bin/webpack-dev-server"
+  },
   "dependencies": {
-    "properjs-controller": "^0.2.0"
+    "properjs-controller": ">=0.3.0"
   }
 }

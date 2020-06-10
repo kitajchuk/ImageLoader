@@ -1,70 +1,47 @@
-ImageLoader
-===========
+ProperJS // ImageLoader
+=======================
 
-> Handle lazy-loading images with contextual load conditions. Uses animation frames to poll for loading.
+> Bullet-proof lazy-loading images with contextual load conditions.
 
 
 
-## Installation
+### Installation
 
 ```shell
-npm install properjs-imageloader --save-dev
+npm i properjs-imageloader --save-dev
 ```
 
 
-## Usage
-Given a set of elements on the page such as this:
+### Usage
+Given a set of elements on the page such as this. Also see the `test` setup which loads over 40 images from [kitajchuk.com](https://kitajchuk.com).
 ```html
-<img class="js-lazy-image" data-img-src="http://placehold.it/350x150" />
-<img class="js-lazy-image" data-img-src="http://placehold.it/350x150" />
+<img class="image" data-src="https://www.kitajchuk.com/assets/img/kickflip/kickflip_01.png" />
+<img class="image" data-src="https://www.kitajchuk.com/assets/img/kickflip/kickflip_02.png" />
+<img class="image" data-src="https://www.kitajchuk.com/assets/img/kickflip/kickflip_03.png" />
 ```
 
-You can load them asynchronously with `ImageLoader` in this manner:
+You can pool them into a manager for loading in this manner. The `executor` is what determines the criteria for an image in the pool actually loading, the default is to be within the viewport. The built-in executor uses `getBoundingClientRect()` to check an image or element's position within the viewport.
 ```javascript
-var ImageLoader = require( "properjs-imageloader" );
+import ImageLoader from "../ImageLoader";
 
+const loader = new ImageLoader({
+    elements: document.querySelectorAll( ".image" ),
+    property: "data-src", // default
+    executor: ( el ) => { // default
+        const bounds = el.getBoundingClientRect();
 
-var imgLoader = new ImageLoader({
-    elements: ".js-lazy-image",
-    property: "data-img-src",
-
-    // Mehtod called on animation frame and passed the current element 
-    // Perform logic here to determine if the current element should load
-    // Return a boolean for this function - default is a noop and loads all immediately
-    executor: function ( el ) {}
-
-// Fires when an element loads its image source
-}).on( "load", function ( el ) {
-    // Handle load success
-
-// Fires when an element fails to load its image source
-}).on( "error", function ( el ) {
-    // Handle load failure
-
-// Fires when all the images in a collection have been loaded
-}).on( "done", function () {
-    // All images loaded for instance
+        return (bounds.top < window.innerHeight && bounds.bottom > 0);
+    },
+    loadType: "async", // default
 });
-```
 
-You can also create normalized executors to pass to the loader:
-```javascript
-// Handler in pseudo code
-var onCheckImage = function ( element ) {
-    var ret = false;
+loader.on( "load", ( el ) => {
+    console.log( "loaded", el.src );
 
-    if ( elementOffsetTop < (currentWindowScrollY + currentWindowHeight) ) {
-        ret = true;
-    }
+}).on( "error", ( el ) => {
+    console.log( "error", el.src );
 
-    return ret;
-};
-
-
-// Use the data handler
-var imgLoader = new ImageLoader({
-    elements: ".js-lazy-image",
-    property: "data-img-src",
-    executor: onCheckImage
+}).on( "done", () => {
+    console.log( "done" );
 });
 ```
